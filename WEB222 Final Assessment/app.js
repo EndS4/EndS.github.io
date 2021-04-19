@@ -1,5 +1,4 @@
 // List of videos in the system
-//Test
 const videosList = [
     {
       "title": "The Hand Ripped Noodles Everyone Should Know How to Make",
@@ -122,36 +121,46 @@ function generateRowHTML(video) {
 }
 
 // @TODO: Put your code here
+//DOM Values for assignment
 let resultsDiv = document.getElementById("results");
 let submitText = document.getElementById("txt-search");
+//function to search video
 function searchVideo() {
+  //Resets the results div everytime this function is called
   resultsDiv.innerHTML = "";
-    let searchResultCaseInsensitive;
-    let videosFound = 0;
-    searchResultCaseInsensitive = submitText.value.toUpperCase();
-    if (submitText.value == "") {
-      alert("Please enter a keyword");
-     return 0;
-   } 
-    for (let i = 0; i < videosList.length; i++) {
-          if (videosList[i].description.toUpperCase().includes(searchResultCaseInsensitive)) {
-               resultsDiv.innerHTML += generateRowHTML(videosList[i]);    
-               videosFound++;
-        } 
+  //The value for result(case insensitive)
+  let searchResultCaseInsensitive;
+  //counts the videos found (used for the searchinf for keywords)
+  let videosFound = 0;
+  //makes the text all uppercase
+  searchResultCaseInsensitive = submitText.value.toUpperCase();
+  //if the Text value is empty throw an alert
+  if (submitText.value == "") {
+    alert("Please enter a keyword");
+    return 0;
+  }
+  //Loops through each array object for a result and outputs it through results div
+  for (let i = 0; i < videosList.length; i++) {
+    if (videosList[i].description.toUpperCase().includes(searchResultCaseInsensitive)) {
+      resultsDiv.innerHTML += generateRowHTML(videosList[i]);
+      videosFound++;
     }
-      if (videosFound == 0) {
-        resultsDiv.innerHTML = `No videos found with the keyword ${submitText.value}`
-      }
-    submitText.value = "";
+  }
+  //If video is not found, show the output to the result div
+  if (videosFound == 0) {
+    resultsDiv.innerHTML = `No videos found with the keyword ${submitText.value}`
+  }
+  //Empties the textbox after everything is done
+  submitText.value = "";
 }
 
-
+//function to show all the videos
 function showAll() {
   resultsDiv.innerHTML = "";
- for (let i = 0; i < videosList.length; i++) {
-   resultsDiv.innerHTML += generateRowHTML(videosList[i])
- }
+  for (let i = 0; i < videosList.length; i++) {
+    resultsDiv.innerHTML += generateRowHTML(videosList[i])
+  }
 }
-
+//Event Listeners
 document.querySelector("#btn-search").addEventListener("click", searchVideo);
 document.querySelector("#btn-show-all").addEventListener("click", showAll);
